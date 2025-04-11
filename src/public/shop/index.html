@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VietShop - Cửa hàng trực tuyến hàng đầu Việt Nam</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header container -->
+    <div id="header-container"></div>
+
+    <!-- Main content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carousel-overlay"></div>
+                        <img src="/image/b1.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Sản phẩm chất lượng cao">
+                        <div class="carousel-caption">
+                            <h2 class="display-4 fw-bold">Sản phẩm chất lượng cao</h2>
+                            <p class="lead">Khám phá bộ sưu tập sản phẩm mới nhất của chúng tôi.</p>
+                            <a href="products.html" class="btn btn-primary btn-lg">Mua sắm ngay</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-overlay"></div>
+                        <img src="/image/b2.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Giảm giá lên đến 50%">
+                        <div class="carousel-caption">
+                            <h2 class="display-4 fw-bold">Giảm giá lên đến 50%</h2>
+                            <p class="lead">Cơ hội cuối cùng để sở hữu những sản phẩm hot trong mùa này.</p>
+                            <a href="products.html?sale=true" class="btn btn-primary btn-lg">Xem ngay</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-overlay"></div>
+                        <img src="/image/b3.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Miễn phí vận chuyển">
+                        <div class="carousel-caption">
+                            <h2 class="display-4 fw-bold">Miễn phí vận chuyển</h2>
+                            <p class="lead">Đối với tất cả đơn hàng trên 500.000 VNĐ.</p>
+                            <a href="products.html" class="btn btn-primary btn-lg">Mua sắm ngay</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories py-5">
+            <div class="container">
+                <div class="section-title text-center mb-5">
+                    <h2>Danh mục sản phẩm</h2>
+                    <p>Khám phá sản phẩm theo danh mục</p>
+                </div>
+                <div class="row" id="categoryList">
+                    <!-- Categories will be loaded dynamically -->
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card placeholder-glow">
+                            <div class="placeholder" style="height: 200px;"></div>
+                            <div class="p-3 text-center">
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-3 mt-2"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card placeholder-glow">
+                            <div class="placeholder" style="height: 200px;"></div>
+                            <div class="p-3 text-center">
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-3 mt-2"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card placeholder-glow">
+                            <div class="placeholder" style="height: 200px;"></div>
+                            <div class="p-3 text-center">
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-3 mt-2"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-products py-5">
+            <div class="container">
+                <div class="section-title text-center mb-5">
+                    <h2>Sản phẩm nổi bật</h2>
+                    <p>Những sản phẩm được ưa chuộng nhất</p>
+                </div>
+                <div class="row" id="featuredProducts">
+                    <!-- Products will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- New Arrivals -->
+        <section class="new-arrivals py-5">
+            <div class="container">
+                <div class="section-title text-center mb-5">
+                    <h2>Sản phẩm mới</h2>
+                    <p>Những sản phẩm mới nhất của chúng tôi</p>
+                </div>
+                <div class="row" id="newProducts">
+                    <!-- Products will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="newsletter py-5 bg-primary text-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h3>Đăng ký nhận thông tin</h3>
+                        <p>Nhận thông tin về sản phẩm mới và ưu đãi đặc biệt.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="d-flex">
+                            <input type="email" class="form-control me-2" placeholder="Nhập email của bạn">
+                            <button type="submit" class="btn btn-light">Đăng ký</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer container -->
+    <div id="footer-container"></div>
+
+    <!-- Manual Login Helper (Hidden by default) -->
+    <div class="modal fade" id="manualLoginModal" tabindex="-1" aria-labelledby="manualLoginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="manualLoginModalLabel">Công cụ đăng nhập thủ công</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-info">
+              <strong>Hướng dẫn:</strong> Dán dữ liệu JSON từ MongoDB vào ô bên dưới và nhấn nút "Đăng nhập thủ công"
+            </div>
+            <div class="mb-3">
+              <label for="mongodbData" class="form-label">Dữ liệu MongoDB JSON</label>
+              <textarea class="form-control" id="mongodbData" rows="10" placeholder='{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...","data":{"user":{"name":"Người dùng","email":"user@example.com","role":"user","_id":"12345","active":true}}}'></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-primary" id="manualLoginBtn">Đăng nhập thủ công</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đăng nhập</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" autocomplete="on">
+                        <div class="mb-3">
+                            <label for="login_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="login_email" name="login_email" autocomplete="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="login_password" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="login_password" name="login_password" autocomplete="current-password" required>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="login_remember" name="login_remember">
+                                <label class="form-check-label" for="login_remember">Ghi nhớ đăng nhập</label>
+                            </div>
+                            <a href="#" class="text-primary">Quên mật khẩu?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p>Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đăng ký</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm" autocomplete="on">
+                        <div class="mb-3">
+                            <label for="register_name" class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" id="register_name" name="register_name" autocomplete="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="register_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="register_email" name="register_email" autocomplete="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="register_password" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="register_password" name="register_password" autocomplete="new-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="register_confirm_password" class="form-label">Xác nhận mật khẩu</label>
+                            <input type="password" class="form-control" id="register_confirm_password" name="register_confirm_password" autocomplete="new-password" required>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="register_terms" name="register_terms" required>
+                            <label class="form-check-label" for="register_terms">Tôi đồng ý với <a href="#">Điều khoản & Điều kiện</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p>Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Define API_BASE_URL first to avoid missing variable error
+    window.API_BASE_URL = 'http://localhost:5000/api';
+    </script>
+    <script src="js/template-loader.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/image-loader.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/auth-components.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Loading templates...');
+        
+        // Load header and footer correctly
+        loadTemplates().then(() => {
+            console.log('Templates loaded successfully');
+        }).catch(error => {
+            console.error('Error loading templates:', error);
+        });
+        
+        // Setup manual login helper
+        const manualLoginBtn = document.getElementById('manualLoginBtn');
+        const mongodbData = document.getElementById('mongodbData');
+        
+        if (manualLoginBtn && mongodbData) {
+            manualLoginBtn.addEventListener('click', function() {
+                const jsonData = mongodbData.value.trim();
+                if (!jsonData) {
+                    showToast('Vui lòng nhập dữ liệu JSON', 'warning');
+                    return;
+                }
+                
+                try {
+                    const success = window.manualLoginWithData(jsonData);
+                    if (success) {
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('manualLoginModal'));
+                        if (modal) {
+                            modal.hide();
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error in manual login:', error);
+                    showToast('Lỗi khi xử lý đăng nhập thủ công', 'danger');
+                }
+            });
+        }
+        
+        // Add debug shortcut (Ctrl+Shift+L) to open manual login modal
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+                e.preventDefault();
+                const manualLoginModal = new bootstrap.Modal(document.getElementById('manualLoginModal'));
+                manualLoginModal.show();
+            }
+        });
+    });
+    </script>
+</body>
+</html> 

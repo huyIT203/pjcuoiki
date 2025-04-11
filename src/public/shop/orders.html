@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng của tôi - VietShop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section bg-light py-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Đơn hàng của tôi</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Orders Section -->
+    <section class="orders-section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center mb-4">
+                                <div class="profile-avatar mb-3">
+                                    <i class="fas fa-user-circle fa-5x text-primary"></i>
+                                </div>
+                                <h5 class="user-name mb-0">Tải...</h5>
+                                <p class="text-muted mb-1 user-email">user@example.com</p>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="profile.html" class="list-group-item list-group-item-action">
+                                    <i class="fas fa-user me-2"></i> Thông tin cá nhân
+                                </a>
+                                <a href="orders.html" class="list-group-item list-group-item-action active">
+                                    <i class="fas fa-shopping-bag me-2"></i> Đơn hàng của tôi
+                                </a>
+                                <a href="wishlist.html" class="list-group-item list-group-item-action">
+                                    <i class="fas fa-heart me-2"></i> Danh sách yêu thích
+                                </a>
+                                <a href="#" id="logoutBtn" class="list-group-item list-group-item-action text-danger">
+                                    <i class="fas fa-sign-out-alt me-2"></i> Đăng xuất
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Orders Content -->
+                <div class="col-md-9">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="card-title mb-0">Đơn hàng của tôi</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Orders Filter -->
+                            <div class="orders-filter mb-4">
+                                <div class="btn-group w-100" role="group">
+                                    <button type="button" class="btn btn-outline-primary active" data-filter="all">Tất cả</button>
+                                    <button type="button" class="btn btn-outline-primary" data-filter="processing">Đang xử lý</button>
+                                    <button type="button" class="btn btn-outline-primary" data-filter="shipped">Đang giao hàng</button>
+                                    <button type="button" class="btn btn-outline-primary" data-filter="delivered">Đã giao hàng</button>
+                                    <button type="button" class="btn btn-outline-primary" data-filter="cancelled">Đã hủy</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Orders Container -->
+                            <div id="ordersContainer">
+                                <div class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Đang tải...</span>
+                                    </div>
+                                    <p class="mt-2">Đang tải danh sách đơn hàng...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Empty Orders Message -->
+                            <div id="emptyOrdersMessage" class="text-center py-5 d-none">
+                                <i class="fas fa-shopping-bag fa-4x text-muted mb-3"></i>
+                                <h5>Bạn chưa có đơn hàng nào</h5>
+                                <p class="text-muted">Hãy mua sắm để tạo đơn hàng đầu tiên của bạn.</p>
+                                <a href="products.html" class="btn btn-primary mt-3">
+                                    <i class="fas fa-shopping-bag me-2"></i>Mua sắm ngay
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Detail Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chi tiết đơn hàng <span id="orderIdDisplay"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="orderDetailBody">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                        </div>
+                        <p class="mt-2">Đang tải chi tiết đơn hàng...</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-danger" id="cancelOrderBtn">Hủy đơn hàng</button>
+                    <button type="button" class="btn btn-primary" id="reorderBtn">Đặt hàng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Toast Notification -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+        <div id="notificationToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Thông báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastMessage"></div>
+        </div>
+    </div>
+
+    <!-- Templates -->
+    <template id="orderItemTemplate">
+        <div class="order-item card mb-3">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="badge order-status">Đang xử lý</span>
+                    <span class="ms-2 order-date">01/01/2023</span>
+                </div>
+                <div>
+                    <span class="fw-bold">Mã đơn hàng: </span>
+                    <span class="order-id">ORD123456</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <div class="order-items-count text-center">
+                            <span class="d-block fs-4 fw-bold">3</span>
+                            <small class="text-muted">sản phẩm</small>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="order-summary">
+                            <p class="mb-1"><span class="fw-bold">Người nhận:</span> <span class="recipient-name">Nguyễn Văn A</span></p>
+                            <p class="mb-1"><span class="fw-bold">Địa chỉ:</span> <span class="shipping-address">123 Đường ABC, Quận XYZ, TP. HCM</span></p>
+                            <p class="mb-0"><span class="fw-bold">Phương thức thanh toán:</span> <span class="payment-method">Thanh toán khi nhận hàng (COD)</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <div class="order-total mb-3">
+                            <span class="d-block fs-5 fw-bold text-primary">đ1,500,000</span>
+                        </div>
+                        <button class="btn btn-outline-primary view-detail-btn" data-id="ORD123456">
+                            Xem chi tiết
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Define API base URL before importing other scripts
+        window.API_BASE_URL = 'http://localhost:5000/api';
+    </script>
+    <script src="js/template-loader.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/orders.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load templates
+            loadTemplates().then(() => {
+                console.log('Templates loaded successfully');
+                
+                // Initialize orders page
+                if (typeof initOrdersPage === 'function') {
+                    initOrdersPage();
+                } else {
+                    console.error('Orders initialization function not found');
+                }
+            }).catch(error => {
+                console.error('Error loading templates:', error);
+            });
+        });
+    </script>
+</body>
+</html> 

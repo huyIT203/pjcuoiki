@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh mục - VietShop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Top Bar -->
+        <div class="top-bar bg-primary text-white py-2">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-3"><i class="fas fa-phone-alt me-2"></i>+84 123 456 789</li>
+                            <li class="list-inline-item"><i class="fas fa-envelope me-2"></i>info@vietshop.com</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-3"><a href="#" class="text-white" id="loginBtn"><i class="fas fa-user me-2"></i>Đăng nhập</a></li>
+                            <li class="list-inline-item"><a href="#" class="text-white" id="registerBtn"><i class="fas fa-user-plus me-2"></i>Đăng ký</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <h1 class="h3 mb-0 text-primary">VietShop</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">Sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="categories.html">Danh mục</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">Giới thiệu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Liên hệ</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <div class="search-box me-3">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
+                                <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="cart position-relative me-3">
+                            <a href="cart.html" class="text-decoration-none">
+                                <i class="fas fa-shopping-cart fs-5 text-dark"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">0</span>
+                            </a>
+                        </div>
+                        <div class="user-profile d-none" id="userProfileNav">
+                            <div class="dropdown">
+                                <a href="#" class="text-decoration-none text-dark dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-circle fs-5 me-1"></i>
+                                    <span class="user-name">Tài khoản</span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Hồ sơ</a></li>
+                                    <li><a class="dropdown-item" href="orders.html"><i class="fas fa-shopping-bag me-2"></i>Đơn hàng</a></li>
+                                    <li><a class="dropdown-item" href="wishlist.html"><i class="fas fa-heart me-2"></i>Yêu thích</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section bg-light py-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh mục</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories py-5">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h2>Danh mục sản phẩm</h2>
+                <p class="text-muted">Khám phá đa dạng các loại sản phẩm theo danh mục</p>
+            </div>
+            
+            <div class="row" id="categoriesContainer">
+                <!-- Categories will be loaded dynamically -->
+                <!-- Loading placeholder -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="category-card h-100 placeholder-glow">
+                        <div class="placeholder" style="height: 250px;"></div>
+                        <div class="p-3 text-center">
+                            <h5 class="placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="placeholder-glow">
+                                <span class="placeholder col-8"></span>
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <div class="placeholder-glow">
+                                <span class="placeholder col-3"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="category-card h-100 placeholder-glow">
+                        <div class="placeholder" style="height: 250px;"></div>
+                        <div class="p-3 text-center">
+                            <h5 class="placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="placeholder-glow">
+                                <span class="placeholder col-8"></span>
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <div class="placeholder-glow">
+                                <span class="placeholder col-3"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="category-card h-100 placeholder-glow">
+                        <div class="placeholder" style="height: 250px;"></div>
+                        <div class="p-3 text-center">
+                            <h5 class="placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="placeholder-glow">
+                                <span class="placeholder col-8"></span>
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <div class="placeholder-glow">
+                                <span class="placeholder col-3"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Brands -->
+    <section class="popular-brands py-5 bg-light">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h2>Thương hiệu nổi bật</h2>
+                <p class="text-muted">Những thương hiệu hàng đầu mà chúng tôi hợp tác</p>
+            </div>
+            
+            <div class="row brands-slider">
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="brand-item p-3 bg-white rounded shadow-sm">
+                        <img src="img/brand1.png" alt="Apple" class="img-fluid">
+                        <h5 class="mt-3">Apple</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="brand-item p-3 bg-white rounded shadow-sm">
+                        <img src="img/brand2.png" alt="Samsung" class="img-fluid">
+                        <h5 class="mt-3">Samsung</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="brand-item p-3 bg-white rounded shadow-sm">
+                        <img src="img/brand3.png" alt="Nike" class="img-fluid">
+                        <h5 class="mt-3">Nike</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="brand-item p-3 bg-white rounded shadow-sm">
+                        <img src="img/brand4.png" alt="Uniqlo" class="img-fluid">
+                        <h5 class="mt-3">Uniqlo</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3>Đăng ký nhận thông tin</h3>
+                    <p>Nhận thông tin về sản phẩm mới và ưu đãi đặc biệt.</p>
+                </div>
+                <div class="col-md-6">
+                    <form class="d-flex">
+                        <input type="email" class="form-control me-2" placeholder="Nhập email của bạn">
+                        <button type="submit" class="btn btn-light">Đăng ký</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">VietShop</h5>
+                    <p>Cửa hàng trực tuyến hàng đầu Việt Nam. Cung cấp sản phẩm chất lượng với giá cả hợp lý.</p>
+                    <ul class="list-inline social-links">
+                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fab fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">Danh mục</h5>
+                    <ul class="list-unstyled category-links">
+                        <!-- Categories will be loaded dynamically -->
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">Thông tin</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-white">Giới thiệu</a></li>
+                        <li><a href="#" class="text-white">Chính sách bảo mật</a></li>
+                        <li><a href="#" class="text-white">Điều khoản & Điều kiện</a></li>
+                        <li><a href="contact.html" class="text-white">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">Liên hệ</h5>
+                    <ul class="list-unstyled contact-info">
+                        <li><i class="fas fa-map-marker-alt me-2"></i>123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone-alt me-2"></i>+84 123 456 789</li>
+                        <li><i class="fas fa-envelope me-2"></i>info@vietshop.com</li>
+                        <li><i class="fas fa-clock me-2"></i>Thứ Hai - Chủ Nhật: 9:00 - 21:00</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 VietShop. Tất cả quyền được bảo lưu.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <img src="img/payment-methods.png" alt="Phương thức thanh toán" class="payment-methods">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/image-loader.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/categories.js"></script>
+</body>
+</html> 

@@ -1,0 +1,217 @@
+<!-- Header -->
+<header>
+    <!-- Top Bar -->
+    <div class="top-bar bg-primary text-white py-2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item me-3"><i class="fas fa-phone-alt me-2"></i>+84 123 456 789</li>
+                        <li class="list-inline-item"><i class="fas fa-envelope me-2"></i>info@vietshop.com</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 text-end">
+                    <!-- User not logged in - will be shown/hidden by updateAuthUI() -->
+                    <div id="userLoginContainer">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-3"><a href="#" class="text-white" id="loginBtn"><i class="fas fa-user me-2"></i>Đăng nhập</a></li>
+                            <li class="list-inline-item"><a href="#" class="text-white" id="registerBtn"><i class="fas fa-user-plus me-2"></i>Đăng ký</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- User logged in - will be shown/hidden by updateAuthUI() -->
+                    <div id="userProfileContainer" class="d-none">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-3">
+                                <span class="text-white"><i class="fas fa-user-circle me-2"></i>Xin chào, <span id="headerUserName">User</span></span>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#" class="text-white" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <h1 class="h3 mb-0 text-primary">VietShop</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.html">Danh mục</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Liên hệ</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="search-box me-3">
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
+                            <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="cart position-relative me-3">
+                        <a href="cart.html" class="text-decoration-none">
+                            <i class="fas fa-shopping-cart fs-5 text-dark"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">0</span>
+                        </a>
+                    </div>
+                    <div class="user-profile d-none" id="userProfileNav">
+                        <div class="dropdown">
+                            <a href="#" class="text-decoration-none text-dark dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle fs-5 me-1"></i>
+                                <span class="user-name">Tài khoản</span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Hồ sơ</a></li>
+                                <li><a class="dropdown-item" href="orders.html"><i class="fas fa-shopping-bag me-2"></i>Đơn hàng</a></li>
+                                <li><a class="dropdown-item" href="wishlist.html"><i class="fas fa-heart me-2"></i>Yêu thích</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="navLogoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Đăng nhập</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="loginEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
+                        </div>
+                        <a href="#" class="text-primary">Quên mật khẩu?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                </form>
+                <div class="mt-3 text-center">
+                    <p>Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Đăng ký</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label for="registerName" class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" id="registerName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="registerPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                        <label class="form-check-label" for="agreeTerms">Tôi đồng ý với <a href="#">Điều khoản & Điều kiện</a></label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+                </form>
+                <div class="mt-3 text-center">
+                    <p>Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập</a></p>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-center">
+                    <a href="#" id="openDebugLoginBtn" class="btn btn-outline-secondary btn-sm"><i class="fas fa-tools me-1"></i>Đăng nhập thủ công</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Manual Login Modal -->
+<div class="modal fade" id="manualLoginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Đăng nhập thủ công</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <p><strong>Chức năng này dành cho phát triển và kiểm thử</strong></p>
+                    <p>Dán JSON dữ liệu đăng nhập từ MongoDB để đăng nhập thủ công.</p>
+                </div>
+                <div class="mb-3">
+                    <label for="mongodbData" class="form-label">Dữ liệu JSON đăng nhập</label>
+                    <textarea class="form-control" id="mongodbData" rows="10" placeholder='Ví dụ:
+{
+    "success": true,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "data": {
+        "user": {
+            "name": "Tên người dùng",
+            "email": "email@example.com",
+            "role": "user",
+            "_id": "123456789"
+        }
+    }
+}'></textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="button" id="manualLoginBtn" class="btn btn-primary">Đăng nhập</button>
+                    <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Hủy</button>
+                </div>
+                <div class="mt-3 small">
+                    <p class="text-muted">Mẹo: Để sử dụng chức năng này, bạn cần phải có dữ liệu JSON trả về từ server MongoDB hoặc console đăng nhập.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

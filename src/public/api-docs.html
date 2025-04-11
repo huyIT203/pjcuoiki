@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce API - Tài liệu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-shopping-cart me-2"></i>E-commerce API</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/api-docs">Tài liệu API</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://github.com/yourusername/ecommerce-api" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-light py-4">
+        <div class="container">
+            <h1 class="display-4">Tài liệu E-commerce API</h1>
+            <p class="lead">Tài liệu tham khảo đầy đủ cho tất cả các điểm cuối API</p>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="sticky-top pt-4" style="top: 20px;">
+                    <div class="list-group">
+                        <a href="#auth" class="list-group-item list-group-item-action">Xác thực</a>
+                        <a href="#users" class="list-group-item list-group-item-action">Người dùng</a>
+                        <a href="#products" class="list-group-item list-group-item-action">Sản phẩm</a>
+                        <a href="#categories" class="list-group-item list-group-item-action">Danh mục</a>
+                        <a href="#orders" class="list-group-item list-group-item-action">Đơn hàng</a>
+                        <a href="#cart" class="list-group-item list-group-item-action">Giỏ hàng</a>
+                        <a href="#reviews" class="list-group-item list-group-item-action">Đánh giá</a>
+                        <a href="#admin" class="list-group-item list-group-item-action">Quản trị viên</a>
+                        <a href="#suppliers" class="list-group-item list-group-item-action">Nhà cung cấp</a>
+                        <a href="#attributes" class="list-group-item list-group-item-action">Thuộc tính</a>
+                        <a href="#postman" class="list-group-item list-group-item-action">Bộ sưu tập Postman</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <section id="auth" class="mb-5">
+                    <h2>Xác thực</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/users/register</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Đăng ký người dùng mới</p>
+                            <div class="request-example">
+                                <h6>Yêu cầu mẫu:</h6>
+                                <pre><code>{
+  "name": "Nguyễn Văn A",
+  "email": "example@email.com",
+  "password": "password123",
+  "passwordConfirm": "password123"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/users/login</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Đăng nhập và lấy access token</p>
+                            <div class="request-example">
+                                <h6>Yêu cầu mẫu:</h6>
+                                <pre><code>{
+  "email": "example@email.com",
+  "password": "password123"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="users" class="mb-5">
+                    <h2>Quản lý người dùng</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/users/profile</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy thông tin người dùng hiện tại (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <span class="endpoint-url">/api/users/profile</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Cập nhật thông tin người dùng (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/users</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy danh sách tất cả người dùng (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="products" class="mb-5">
+                    <h2>Quản lý sản phẩm</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/products</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy danh sách tất cả sản phẩm với phân trang và lọc</p>
+                            <p><strong>Query params:</strong> page, limit, sort, price[gte], price[lte], category, brand, rating</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/products/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy chi tiết một sản phẩm theo ID</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/products</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Tạo sản phẩm mới (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <span class="endpoint-url">/api/products/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Cập nhật sản phẩm (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <span class="endpoint-url">/api/products/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Xóa sản phẩm (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="categories" class="mb-5">
+                    <h2>Quản lý danh mục</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/categories</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy danh sách tất cả danh mục</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/categories</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Tạo danh mục mới (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="orders" class="mb-5">
+                    <h2>Quản lý đơn hàng</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/orders</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy danh sách tất cả đơn hàng (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/orders/myorders</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy đơn hàng của người dùng hiện tại (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/orders/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy chi tiết đơn hàng theo ID (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/orders</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Tạo đơn hàng mới (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <span class="endpoint-url">/api/orders/:id/status</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Cập nhật trạng thái đơn hàng (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <span class="endpoint-url">/api/orders/:id/cancel</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Hủy đơn hàng (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cart" class="mb-5">
+                    <h2>Quản lý giỏ hàng</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/cart</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy giỏ hàng của người dùng hiện tại (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/cart</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Thêm sản phẩm vào giỏ hàng (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <span class="endpoint-url">/api/cart/:itemId</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Cập nhật số lượng sản phẩm trong giỏ hàng (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <span class="endpoint-url">/api/cart/:itemId</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Xóa sản phẩm khỏi giỏ hàng (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="reviews" class="mb-5">
+                    <h2>Quản lý đánh giá</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/products/:id/reviews</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy tất cả đánh giá của một sản phẩm</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/products/:id/reviews</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Thêm đánh giá cho sản phẩm (Yêu cầu xác thực)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="admin" class="mb-5">
+                    <h2>Quản lý Admin</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/users/setup</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Tạo admin đầu tiên cho hệ thống (Chỉ dùng khi chưa có admin nào)</p>
+                            <div class="request-example">
+                                <h6>Yêu cầu mẫu:</h6>
+                                <pre><code>{
+  "name": "Admin",
+  "email": "admin@example.com",
+  "password": "adminpassword123",
+  "passwordConfirm": "adminpassword123"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/users/admin</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Tạo người dùng admin mới (Chỉ dành cho Super Admin)</p>
+                            <div class="request-example">
+                                <h6>Yêu cầu mẫu:</h6>
+                                <pre><code>{
+  "name": "Admin mới",
+  "email": "newadmin@example.com",
+  "password": "password123",
+  "passwordConfirm": "password123",
+  "role": "admin"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/users/admins</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy danh sách tất cả admin (Chỉ dành cho Super Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <span class="endpoint-url">/api/users/admin/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Cập nhật thông tin admin (Chỉ dành cho Super Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <span class="endpoint-url">/api/users/admin/:id/deactivate</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Vô hiệu hóa tài khoản admin (Chỉ dành cho Super Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <span class="endpoint-url">/api/users/admin/:id/permissions</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Cập nhật quyền cho admin (Chỉ dành cho Super Admin)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="suppliers" class="mb-5">
+                    <h2>Quản lý nhà cung cấp</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/suppliers</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy danh sách tất cả nhà cung cấp (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/suppliers/active</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy danh sách nhà cung cấp đang hoạt động</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/suppliers/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy thông tin nhà cung cấp theo ID</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/suppliers/:id/products</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy sản phẩm từ một nhà cung cấp</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/suppliers</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Tạo nhà cung cấp mới (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <span class="endpoint-url">/api/suppliers/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Cập nhật thông tin nhà cung cấp (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <span class="endpoint-url">/api/suppliers/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Xóa nhà cung cấp (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="attributes" class="mb-5">
+                    <h2>Quản lý thuộc tính</h2>
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/attributes</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy danh sách tất cả thuộc tính</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/attributes/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy thông tin thuộc tính theo ID</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="endpoint-url">/api/attributes/:id/values</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Lấy giá trị của thuộc tính</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/attributes</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Tạo thuộc tính mới (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <span class="endpoint-url">/api/attributes/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Cập nhật thuộc tính (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <span class="endpoint-url">/api/attributes/:id</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Xóa thuộc tính (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="endpoint-url">/api/attributes/:id/values</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Thêm giá trị cho thuộc tính (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <span class="endpoint-url">/api/attributes/:id/values/:valueId</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <p>Xóa giá trị thuộc tính (Chỉ dành cho Admin)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="postman" class="mb-5">
+                    <h2>Bộ sưu tập Postman</h2>
+                    <p>Để dễ dàng kiểm thử API, chúng tôi cung cấp bộ sưu tập Postman đầy đủ với tất cả các endpoint.</p>
+                    <p>Bạn có thể tải xuống bộ sưu tập tại <code>/public/postman</code> và nhập vào Postman để bắt đầu kiểm thử.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="/postman/ecommerce-api-collection.json" class="btn btn-primary me-md-2" download>
+                            <i class="fas fa-download me-2"></i>Tải Collection Chính
+                        </a>
+                        <a href="/postman/admin-api-collection.json" class="btn btn-secondary me-md-2" download>
+                            <i class="fas fa-download me-2"></i>Tải Collection Admin
+                        </a>
+                        <a href="/postman/category-api-collection.json" class="btn btn-info me-md-2" download>
+                            <i class="fas fa-download me-2"></i>Tải Collection Danh mục
+                        </a>
+                        <a href="/postman/attribute-api-collection.json" class="btn btn-warning" download>
+                            <i class="fas fa-download me-2"></i>Tải Collection Thuộc tính
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2025 E-commerce API. Tất cả các quyền được bảo lưu.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

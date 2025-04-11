@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt hàng thành công - VietShop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section bg-light py-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="cart.html">Giỏ hàng</a></li>
+                    <li class="breadcrumb-item"><a href="checkout.html">Thanh toán</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Xác nhận đơn hàng</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Order Confirmation Section -->
+    <section class="order-confirmation-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body text-center p-5">
+                            <div class="confirmation-icon mb-4">
+                                <i class="fas fa-check-circle text-success fa-5x"></i>
+                            </div>
+                            <h2 class="card-title mb-3">Đặt hàng thành công!</h2>
+                            <p class="card-text mb-4">Cảm ơn bạn đã mua hàng tại VietShop. Đơn hàng của bạn đã được tiếp nhận và đang được xử lý.</p>
+                            
+                            <div class="order-info mb-4">
+                                <div class="d-flex justify-content-center mb-2">
+                                    <span class="me-2">Mã đơn hàng:</span>
+                                    <strong id="orderReference">Loading...</strong>
+                                </div>
+                            </div>
+                            
+                            <div id="offlineNotice" class="alert alert-warning d-none">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Đơn hàng đang được lưu trong chế độ offline. Chúng tôi sẽ liên hệ với bạn sau khi kết nối được với máy chủ.
+                            </div>
+                            
+                            <div class="payment-info mb-4" id="paymentInfo">
+                                <!-- Payment information will be loaded dynamically -->
+                            </div>
+                            
+                            <div class="confirmation-actions">
+                                <a href="products.html" class="btn btn-primary me-2">
+                                    <i class="fas fa-shopping-bag me-2"></i>Tiếp tục mua sắm
+                                </a>
+                                <a href="orders.html" class="btn btn-outline-primary">
+                                    <i class="fas fa-clipboard-list me-2"></i>Xem đơn hàng
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="card-title mb-0">Thông tin đơn hàng</h5>
+                        </div>
+                        <div class="card-body" id="orderDetails">
+                            <div class="text-center py-3">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Đang tải...</span>
+                                </div>
+                                <p class="mt-2">Đang tải thông tin đơn hàng...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script>
+        // Define base API URL
+        window.API_BASE_URL = 'http://localhost:5000/api';
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/template-loader.js"></script>
+    
+    <script>
+        // Load templates
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTemplates().then(() => {
+                console.log('Templates loaded successfully');
+                
+                // Parse URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const orderId = urlParams.get('orderId');
+                const orderRef = urlParams.get('ref');
+                const isOffline = urlParams.get('offline') === 'true';
+                
+                // Update order reference
+                const orderReferenceElement = document.getElementById('orderReference');
+                if (orderReferenceElement) {
+                    orderReferenceElement.textContent = orderRef || 'Unknown';
+                }
+                
+                // Show offline notice if applicable
+                if (isOffline) {
+                    const offlineNotice = document.getElementById('offlineNotice');
+                    if (offlineNotice) {
+                        offlineNotice.classList.remove('d-none');
+                    }
+                }
+                
+                // Load order details
+                if (orderId) {
+                    if (isOffline) {
+                        // Load from localStorage for offline orders
+                        const offlineOrders = JSON.parse(localStorage.getItem('offlineOrders') || '[]');
+                        const order = offlineOrders.find(o => o._id === orderId);
+                        
+                        if (order) {
+                            displayOrderDetails(order);
+                        } else {
+                            showErrorMessage('Không tìm thấy thông tin đơn hàng.');
+                        }
+                    } else {
+                        // Load from API for online orders
+                        const token = localStorage.getItem('userToken');
+                        
+                        if (token) {
+                            fetch(`${window.API_BASE_URL}/orders/${orderId}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`API error: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                const order = data.data || data;
+                                displayOrderDetails(order);
+                            })
+                            .catch(error => {
+                                console.error('Error fetching order details:', error);
+                                showErrorMessage('Không thể tải thông tin đơn hàng từ máy chủ.');
+                            });
+                        } else {
+                            showErrorMessage('Bạn cần đăng nhập để xem thông tin đơn hàng.');
+                        }
+                    }
+                } else {
+                    showErrorMessage('Không tìm thấy mã đơn hàng.');
+                }
+            }).catch(error => {
+                console.error('Error loading templates:', error);
+            });
+        });
+        
+        /**
+         * Display order details
+         * @param {Object} order - Order data
+         */
+        function displayOrderDetails(order) {
+            // Update payment info
+            const paymentInfoElement = document.getElementById('paymentInfo');
+            if (paymentInfoElement) {
+                const paymentMethod = order.payment?.method || 'cod';
+                
+                let paymentHtml = '<div class="alert alert-light border">';
+                
+                if (paymentMethod === 'bank_transfer') {
+                    paymentHtml += `
+                        <h6><i class="fas fa-university me-2"></i>Thanh toán chuyển khoản</h6>
+                        <p class="mb-1">Vui lòng chuyển khoản với nội dung: <strong>${order.orderReference}</strong></p>
+                        <p class="mb-1"><strong>Ngân hàng:</strong> Vietcombank</p>
+                        <p class="mb-1"><strong>Số tài khoản:</strong> 1234567890</p>
+                        <p class="mb-0"><strong>Chủ tài khoản:</strong> CÔNG TY TNHH VIETSHOP</p>
+                    `;
+                } else {
+                    paymentHtml += `
+                        <h6><i class="fas fa-money-bill-wave me-2"></i>Thanh toán khi nhận hàng (COD)</h6>
+                        <p class="mb-0">Bạn sẽ thanh toán khi nhận được hàng.</p>
+                    `;
+                }
+                
+                paymentHtml += '</div>';
+                paymentInfoElement.innerHTML = paymentHtml;
+            }
+            
+            // Update order details
+            const orderDetailsElement = document.getElementById('orderDetails');
+            if (orderDetailsElement) {
+                const summary = order.summary || {};
+                
+                let detailsHtml = `
+                    <div class="mb-4">
+                        <h6 class="mb-3">Thông tin người nhận</h6>
+                        <p class="mb-1"><strong>Họ tên:</strong> ${order.customer?.fullName || 'N/A'}</p>
+                        <p class="mb-1"><strong>Số điện thoại:</strong> ${order.customer?.phone || 'N/A'}</p>
+                        <p class="mb-1"><strong>Email:</strong> ${order.customer?.email || 'N/A'}</p>
+                        <p class="mb-0">
+                            <strong>Địa chỉ:</strong> 
+                            ${order.shipping?.address || 'N/A'}${order.shipping?.ward ? ', ' + order.shipping.ward : ''}${order.shipping?.district ? ', ' + order.shipping.district : ''}${order.shipping?.province ? ', ' + order.shipping.province : ''}
+                        </p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6 class="mb-3">Thông tin thanh toán</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <tr>
+                                    <td>Tạm tính:</td>
+                                    <td class="text-end">${formatCurrency(summary.subtotal || 0)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Giảm giá:</td>
+                                    <td class="text-end">${formatCurrency(summary.discount || 0)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phí vận chuyển:</td>
+                                    <td class="text-end">${summary.shipping === 0 ? 'Miễn phí' : formatCurrency(summary.shipping || 0)}</td>
+                                </tr>
+                                <tr class="fw-bold">
+                                    <td>Tổng cộng:</td>
+                                    <td class="text-end text-primary">${formatCurrency(summary.total || 0)}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h6 class="mb-3">Sản phẩm đã đặt</h6>
+                        <div class="list-group">
+                `;
+                
+                // Add order items
+                if (order.items && order.items.length > 0) {
+                    order.items.forEach(item => {
+                        detailsHtml += `
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">${item.product?.name || 'Sản phẩm'}</h6>
+                                        <small class="text-muted">Số lượng: ${item.quantity}</small>
+                                    </div>
+                                    <span class="text-primary">${formatCurrency((item.product?.price || 0) * item.quantity)}</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    detailsHtml += `
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            Không có thông tin sản phẩm.
+                        </div>
+                    `;
+                }
+                
+                detailsHtml += `
+                        </div>
+                    </div>
+                `;
+                
+                orderDetailsElement.innerHTML = detailsHtml;
+            }
+        }
+        
+        /**
+         * Show error message
+         * @param {string} message - Error message
+         */
+        function showErrorMessage(message) {
+            const orderDetailsElement = document.getElementById('orderDetails');
+            if (orderDetailsElement) {
+                orderDetailsElement.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        ${message}
+                    </div>
+                `;
+            }
+        }
+        
+        /**
+         * Format currency
+         * @param {number} amount - Amount to format
+         * @returns {string} Formatted currency string
+         */
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+    </script>
+</body>
+</html> 

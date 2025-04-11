@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng - VietShop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+    <!-- Header will be loaded dynamically -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section bg-light py-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section py-5">
+        <div class="container">
+            <h2 class="mb-4">Giỏ hàng của bạn</h2>
+            
+            <div id="cartContainer">
+                <!-- Cart items will be loaded dynamically -->
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="emptyCartMessage" class="text-center py-5 d-none">
+                <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                <h3>Giỏ hàng của bạn đang trống</h3>
+                <p class="text-muted">Hãy thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm.</p>
+                <a href="products.html" class="btn btn-primary mt-3">Tiếp tục mua sắm</a>
+            </div>
+            
+            <div class="row mt-5" id="cartSummarySection">
+                <div class="col-md-6">
+                    <div class="coupon-section mb-4">
+                        <h4>Mã giảm giá</h4>
+                        <div class="input-group mt-3">
+                            <input type="text" class="form-control" id="couponCode" placeholder="Nhập mã giảm giá">
+                            <button class="btn btn-outline-primary" type="button" id="applyCoupon">Áp dụng</button>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">* Mã mẫu để test: WELCOME10 (giảm 10%) hoặc SHIP0 (miễn phí vận chuyển)</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="cart-summary card">
+                        <div class="card-header bg-white">
+                            <h4 class="mb-0">Tổng giỏ hàng</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="summary-item d-flex justify-content-between mb-2">
+                                <span>Tạm tính:</span>
+                                <span id="subtotal">0 ₫</span>
+                            </div>
+                            <div class="summary-item d-flex justify-content-between mb-2">
+                                <span>Giảm giá:</span>
+                                <span id="discount">0 ₫</span>
+                            </div>
+                            <div class="summary-item d-flex justify-content-between mb-2">
+                                <span>Phí vận chuyển:</span>
+                                <span id="shipping">0 ₫</span>
+                            </div>
+                            <hr>
+                            <div class="summary-total d-flex justify-content-between mb-3">
+                                <span class="fw-bold">Tổng cộng:</span>
+                                <span class="fw-bold text-primary" id="total">0 ₫</span>
+                            </div>
+                            <button class="btn btn-primary w-100" id="checkoutBtn">Tiến hành thanh toán</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3>Đăng ký nhận thông tin</h3>
+                    <p>Nhận thông tin về sản phẩm mới và ưu đãi đặc biệt.</p>
+                </div>
+                <div class="col-md-6">
+                    <form class="d-flex">
+                        <input type="email" class="form-control me-2" placeholder="Nhập email của bạn">
+                        <button type="submit" class="btn btn-light">Đăng ký</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-container"></div>
+
+    <!-- Cart Item Template -->
+    <template id="cart-item-template">
+        <div class="cart-item card mb-3">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-2 col-4">
+                        <img src="" alt="" class="img-fluid rounded cart-item-image">
+                    </div>
+                    <div class="col-md-4 col-8">
+                        <h5 class="cart-item-title"></h5>
+                        <p class="text-muted mb-0 cart-item-category"></p>
+                    </div>
+                    <div class="col-md-2 col-4">
+                        <div class="quantity-control d-flex align-items-center justify-content-center">
+                            <button class="btn btn-sm btn-outline-secondary quantity-decrease">-</button>
+                            <input type="number" class="form-control mx-2 text-center cart-item-quantity" value="1" min="1" max="10">
+                            <button class="btn btn-sm btn-outline-secondary quantity-increase">+</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-4 text-center">
+                        <span class="cart-item-price fw-bold"></span>
+                    </div>
+                    <div class="col-md-2 col-4 text-end">
+                        <button class="btn btn-sm btn-danger remove-item"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Scripts -->
+    <script>
+        // Define base API URL globally before loading other scripts
+        window.API_BASE_URL = 'http://localhost:5000/api';
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/template-loader.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // Initialize page after templates are loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTemplates().then(() => {
+                // Cart functionality will be initialized from cart.js
+                console.log('Templates loaded successfully');
+            }).catch(error => {
+                console.error('Error loading templates:', error);
+            });
+        });
+    </script>
+</body>
+</html> 

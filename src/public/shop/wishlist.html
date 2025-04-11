@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>Danh sách yêu thích - VietShop</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="VietShop, ecommerce, việt nam, mua sắm" name="keywords">
+    <meta content="Website mua sắm trực tuyến hàng đầu Việt Nam" name="description">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb Start -->
+    <section class="breadcrumb-section bg-light py-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách yêu thích</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <!-- Breadcrumb End -->
+
+    <!-- Wishlist Start -->
+    <section class="wishlist-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div id="loginRequired" class="text-center py-5 d-none">
+                        <div class="mb-4">
+                            <i class="far fa-heart fa-5x text-muted"></i>
+                        </div>
+                        <h3 class="mb-3">Vui lòng đăng nhập để xem danh sách yêu thích của bạn</h3>
+                        <p class="text-muted mb-4">Đăng nhập để lưu và xem các sản phẩm yêu thích của bạn</p>
+                        <button class="btn btn-primary px-4" id="wishlistLoginBtn">
+                            Đăng nhập ngay
+                        </button>
+                    </div>
+
+                    <div id="wishlistContainer" class="mb-5">
+                        <h2 class="section-title position-relative text-uppercase mb-4">
+                            <span class="bg-white pe-3">Danh sách yêu thích</span>
+                        </h2>
+
+                        <!-- Loading spinner -->
+                        <div id="wishlistLoading" class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Đang tải...</span>
+                            </div>
+                            <p class="mt-2">Đang tải danh sách yêu thích...</p>
+                        </div>
+
+                        <!-- Empty wishlist message -->
+                        <div id="wishlistEmpty" class="text-center py-5 d-none">
+                            <div class="mb-4">
+                                <i class="far fa-heart fa-5x text-muted"></i>
+                            </div>
+                            <h3 class="mb-3">Danh sách yêu thích của bạn đang trống</h3>
+                            <p class="text-muted mb-4">Hãy thêm sản phẩm bạn yêu thích để xem tại đây!</p>
+                            <a href="products.html" class="btn btn-primary px-4">
+                                Khám phá sản phẩm
+                            </a>
+                        </div>
+
+                        <!-- Wishlist items container -->
+                        <div class="row" id="wishlistItems">
+                            <!-- Wishlist items will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Wishlist End -->
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top">
+        <i class="fa fa-angle-double-up"></i>
+    </a>
+
+    <!-- Toast Notification -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+        <div id="notificationToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Thông báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastMessage"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Define API base URL before importing other scripts
+        window.API_BASE_URL = 'http://localhost:5000/api';
+        window.PRODUCTS_API_URL = `${API_BASE_URL}/products`;
+    </script>
+    <script src="js/template-loader.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/wishlist.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load templates
+            loadTemplates().then(() => {
+                console.log('Templates loaded successfully');
+                
+                // Initialize the wishlist page
+                if (typeof initWishlistPage === 'function') {
+                    initWishlistPage();
+                } else {
+                    console.error('Wishlist initialization function not found');
+                }
+            }).catch(error => {
+                console.error('Error loading templates:', error);
+            });
+        });
+    </script>
+</body>
+
+</html> 
